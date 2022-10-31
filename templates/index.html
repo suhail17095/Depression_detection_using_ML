@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            background-color: white;
+            margin-top: 139px;
+            width: 1115px;
+            height: 1180px;
+
+        }
+
+        .info1 input,
+        .info2 input,
+        .info3 input {
+            width: 50%;
+            margin: 5px;
+        }
+
+        input,
+        select {
+            height: 28px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .information {
+            text-align: center;
+            padding: 10px;
+        }
+
+        select {
+            height: 41px;
+        }
+
+        .other_info {
+            display: flex;
+            justify-content: center;
+        }
+
+        .first {
+            margin-right: 105px;
+        }
+
+        .second {
+            margin-left: 105px;
+        }
+
+        .other_info select {
+            margin-bottom: 20px;
+        }
+
+        .other_info p {
+            margin-bottom: 5px;
+        }
+
+        header {
+            padding-top: 50px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        button {
+            margin-left: 336px;
+            height: 45px;
+            width: 407px;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        button:hover {
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+
+        .ml13 {
+            color: black;
+            font-size: 1.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            font-weight: 600;
+            position: absolute;
+            top: 51px;
+            left: 110px;
+
+        }
+
+        .ml13 .letter {
+            display: inline-block;
+            line-height: 1em;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: flex;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            height: 43px;
+            width: 400px;
+            padding-top: 20px;
+            margin-top: 41px;
+            padding-left: 40px;
+            margin-left: 340px;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 5px;
+            letter-spacing: 1px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form action="{{ url_for('predict')}}" method="POST">
+        <nav class="ml13" style="background-color:WHTIE;">
+            WE ARE HERE FOR YOU 
+        </nav>
+        <header>
+            <div class="information">
+                <div class="info1">
+                    <p style="display:inline;">Name</p>
+                    <input type="text" required name="name"  autocomplete="off">
+                </div>
+                <div class="info2">
+                    <p style="display:inline;">Email</p>
+                    <input type="email" required name="email"  autocapitalize="off">
+                </div>
+                <div class="info3">
+                    <p style="display:inline;">age</p>
+                    <input type="number" required name="age">
+                </div>
+            </div>
+            <div class="other_info">
+                <div class="first">
+
+                    <p>Gender</p>
+                    <select name="gender" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="2">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+
+                    <p>Education</p>
+                    <select name="education" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Post Graduate</option>
+                        <option value="2">HSC</option>
+                        <option value="3">Graduate</option>
+                        <option value="4">SSC</option>
+                    </select>
+
+                    <p>Profession</p>
+                    <select name="profession" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Unemployed</option>
+                        <option value="2">Service holder (Private)</option>
+                        <option value="3">Student</option>
+                        <option value="4">Service holder (Government)</option>
+                        <option value="5">Other</option>
+                        <option value="6">Businessman</option>
+                    </select>
+
+                    <p>Maritial Status</p>
+                    <select name="maritial_status" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Unmarried</option>
+                        <option value="2">Married</option>
+                        <option value="3">Divorced</option>
+                    </select>
+
+                    <p>Residential Place</p>
+                    <select name="residential_place" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Town</option>
+                        <option value="2">City</option>
+                        <option value="3">Village</option>
+                    </select>
+
+                    <p>Living With</p>
+                    <select name="living_with" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">With Family</option>
+                        <option value="2">Without Family</option>
+                    </select>
+
+
+                    <p>Are You in Debt?</p>
+                    <select name="debt" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Do You Smoke?</p>
+                    <select name="smoke" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Do You Drink?</p>
+                    <select name="drink" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Are You ill?</p>
+                    <select name="illness" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                </div>
+                <div class="second">
+
+                    <p>Average Sleep</p>
+                    <select name="average_sleep" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">More than 8 hours</option>
+                        <option value="2">6 hours</option>
+                        <option value="3">8 hours</option>
+                        <option value="4">7 hours</option>
+                        <option value="5">5 hours</option>
+                        <option value="6">Below 5 hours</option>
+                    </select>
+
+                    <p>Do You have Insomia?</p>
+                    <select name="insomia" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Work Pressure</p>
+                    <select name="work_pressure" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">No Pressure</option>
+                        <option value="2">Moderate</option>
+                        <option value="3">Mild</option>
+                        <option value="4">Severe</option>
+                    </select>
+
+                    <p>Anxiety?</p>
+                    <select name="anxiety" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Do you feel depressed?</p>
+                    <select name="depressed" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Have You Been Abused?</p>
+                    <select name="abused" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Have you been cheated?</p>
+                    <select name="cheat" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Have you recieve a threat?</p>
+                    <select name="threat" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Do you feel to sucide?</p>
+                    <select name="sucide" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                    <p>Have you lost someone recently?</p>
+                    <select name="lost" id="" required>
+                        <option disabled selected value> -- Select an Option -- </option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+
+                </div>
+
+            </div>
+            <button>Estimate</button>
+            <div class="output hide {{show}}">
+                {{prediction_text}}
+            </div>
+        </header>
+    </form>
+</body>
+
+</html>
